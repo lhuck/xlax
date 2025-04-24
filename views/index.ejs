@@ -1,25 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Infinite For You</title>
-  <link rel="stylesheet" href="/styles/style.css">
+  <meta charset="UTF-8" />
+  <title>Hot Player</title>
 </head>
 <body>
-  <h1>Bem-vindo ao Infinite For You</h1>
-  
-  <!-- Exemplo de vídeo -->
-  <video controls>
-    <source src="/videos/video1.mp4" type="video/mp4">
-    Seu navegador não suporta a tag de vídeo.
-  </video>
-
-  <!-- Botões de curtir e salvar -->
-  <button id="likeBtn">Curtir</button>
-  <button id="saveBtn">Salvar</button>
-
-  <script src="/scripts/main.js"></script>
+  <h1>🔥 Vídeos Recentes</h1>
+  <% videos.forEach(video => { %>
+    <div>
+      <h2><%= video.title %></h2>
+      <iframe src="<%= video.url %>" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+    </div>
+  <% }); %>
 </body>
 </html>
-    
