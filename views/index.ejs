@@ -1,16 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hot Player</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infinite For You</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+    }
+  </style>
 </head>
-<body>
-  <h1>🔥 Vídeos Recentes</h1>
-  <% videos.forEach(video => { %>
-    <div>
-      <h2><%= video.title %></h2>
-      <iframe src="<%= video.url %>" width="640" height="360" frameborder="0" allowfullscreen></iframe>
-    </div>
-  <% }); %>
+<body class="bg-black text-white min-h-screen">
+  <header class="p-4 bg-gradient-to-r from-purple-800 to-indigo-900 shadow-md">
+    <h1 class="text-3xl font-bold text-center">Infinite For You </h1>
+  </header>
+
+  <main class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <% videos.forEach(video => { %>
+      <div class="bg-zinc-900 p-4 rounded-2xl shadow-lg transition-transform hover:scale-105">
+        <video src="<%= video.url %>" controls class="w-full rounded-xl mb-2"></video>
+        <h2 class="text-lg font-semibold"><%= video.title %></h2>
+        <div class="flex gap-2 mt-2">
+        </div>
+      </div>
+    <% }); %>
+  </main>
+
+  <footer class="p-4 text-center text-zinc-400 text-sm">
+    © 2025 Infinite For You. Todos os direitos reservados.
+  </footer>
 </body>
 </html>
