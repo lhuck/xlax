@@ -22,11 +22,25 @@
 
   <main class="p-6 max-w-2xl mx-auto">
     <h2 class="text-xl font-bold mb-4">Adicionar novo vídeo</h2>
-    <form action="/add-video" method="POST" class="flex flex-col gap-4">
+    <form action="/add-video" method="POST" class="flex flex-col gap-4 mb-10">
       <input type="text" name="title" placeholder="Título do vídeo" class="p-3 rounded bg-zinc-800 text-white" required>
       <input type="url" name="url" placeholder="URL do vídeo (.mp4)" class="p-3 rounded bg-zinc-800 text-white" required>
       <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white p-3 rounded font-bold">Adicionar</button>
     </form>
+
+    <h2 class="text-xl font-bold mb-4">Vídeos Existentes</h2>
+    <div class="grid grid-cols-1 gap-6">
+      <% videos.forEach(video => { %>
+        <div class="bg-zinc-900 p-4 rounded-2xl shadow-lg">
+          <video src="<%= video.url %>" controls class="w-full rounded-xl mb-2"></video>
+          <h3 class="text-lg font-semibold mb-2"><%= video.title %></h3>
+          <form action="/delete-video" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este vídeo?')">
+            <input type="hidden" name="url" value="<%= video.url %>">
+            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">Apagar</button>
+          </form>
+        </div>
+      <% }); %>
+    </div>
   </main>
 </body>
 </html>

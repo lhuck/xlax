@@ -40,15 +40,36 @@ app.post('/login', (req, res) => {
     res.send('Usuário ou senha inválidos.');
   }
 });
+app.post('/delete-video', (req, res) => {
+  if (!req.session.authenticated) {
+    return res.status(403).send('Acesso negado');
+  }
 
+  const { url } = req.body;
+
+  if (!url) {
+    return res.status(400).send('URL é obrigatória para deletar.');
+  }
+
+  let videos = JSON.parse(fs.readFileSync('./videos.json'));
+
+  // Remove o vídeo com a URL correspondente
+  videos = videos.filter(video => video.url !== url);
+
+  fs.writeFileSync('./videos.json', JSON.stringify(videos, null, 2));
+
+  res.redirect('/admin');
+});
 // Área protegida
 app.get('/admin', (req, res) => {
-  if (req.session.authenticated) {
-    res.render('admin');
-  } else {
-    res.redirect('/login');
+  if (!req.session.authenticated) {
+    return res.redirect('/login');
   }
+
+  const videos = JSON.parse(fs.readFileSync('./videos.json'));
+  res.render('admin', { videos }); // <- aqui está a correção
 });
+
 app.post('/add-video', (req, res) => {
   if (!req.session.authenticated) {
     return res.status(403).send('Acesso negado');
